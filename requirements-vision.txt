@@ -1,0 +1,4 @@
+# Optional: install only when real YOLOv8 medical imaging inference is required.
+# This is a large download (several GB).
+torch>=2.2.0
+ultralytics>=8.2.0

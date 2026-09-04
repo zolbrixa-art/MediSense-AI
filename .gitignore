@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Environment
+.env
+
+# Database
+db/*.db
+db/*.sqlite
+
+# Uploads & model weights (keep folder via .gitkeep)
+uploads/*
+!uploads/.gitkeep
+weights/*
+!weights/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

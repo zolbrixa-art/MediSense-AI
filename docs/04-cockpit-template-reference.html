@@ -1,0 +1,185 @@
+<div class="flex h-screen bg-slate-950 text-slate-100 font-sans">
+  
+  <!-- Left Sidebar Navigation -->
+  <aside class="w-64 border-r border-slate-800 bg-slate-900/80 flex flex-col justify-between p-4 backdrop-blur-md">
+    <div>
+      <div class="flex items-center gap-3 px-2 py-3 border-b border-slate-800">
+        <div class="h-9 w-9 rounded-xl bg-blue-600 flex items-center justify-center font-bold text-white shadow-lg shadow-blue-500/20">
+          M+
+        </div>
+        <div>
+          <h1 class="font-bold text-sm tracking-wide text-white">MediSense AI</h1>
+          <p class="text-[11px] text-slate-400">Clinical Decision Support</p>
+        </div>
+      </div>
+
+      <nav class="mt-6 flex flex-col gap-1.5">
+        <a routerLink="/doctor/dashboard" routerLinkActive="bg-blue-600/10 text-blue-400 border-blue-500" 
+           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold border-l-2 border-transparent text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition">
+          📊 Console Overview
+        </a>
+        <a routerLink="/doctor/live-queue" routerLinkActive="bg-blue-600/10 text-blue-400 border-blue-500" 
+           class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-semibold border-l-2 border-transparent text-slate-400 hover:bg-slate-800 hover:text-slate-200 transition">
+          ⏱️ OPD Live Queue
+          <span class="ml-auto bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded-full font-bold">8 Waiting</span>
+        </a>
+      </nav>
+    </div>
+
+    <div class="border-t border-slate-800 pt-3 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="h-8 w-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-blue-400">DR</div>
+        <div>
+          <p class="text-xs font-bold text-white">Dr. Ahmed</p>
+          <p class="text-[10px] text-emerald-400 font-medium">● OPD Online</p>
+        </div>
+      </div>
+      <button (click)="logout()" class="text-slate-500 hover:text-rose-400 transition text-sm">🚪</button>
+    </div>
+  </aside>
+
+  <!-- Main Clinical Cockpit Area -->
+  <main class="flex-1 flex flex-col overflow-hidden">
+    
+    <!-- Top Action Header -->
+    <header class="h-16 border-b border-slate-800 bg-slate-900/50 px-6 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <h2 class="text-base font-bold text-white">Active Consultation</h2>
+        <span class="bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs px-2.5 py-0.5 rounded-md font-medium">
+          Token #05 • Live OPD
+        </span>
+      </div>
+      <div class="flex items-center gap-3">
+        <button class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium border border-slate-700 transition">
+          Hold / Skip
+        </button>
+        <button (click)="serveNextPatient()" class="px-4 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md shadow-blue-600/30 transition">
+          Complete & Next Patient →
+        </button>
+      </div>
+    </header>
+
+    <!-- Workspace Grid -->
+    <div class="flex-1 grid grid-cols-12 gap-5 p-6 overflow-y-auto">
+      
+      <!-- Left Column: Vitals, Scans & History (7 Cols) -->
+      <div class="col-span-7 flex flex-col gap-5">
+        
+        <!-- Live Vitals Telemetry Row -->
+        <div class="grid grid-cols-4 gap-3">
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl">
+            <span class="text-[11px] text-slate-400 font-medium">Heart Rate</span>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span class="text-xl font-black text-white">82</span>
+              <span class="text-[10px] text-slate-500">BPM</span>
+            </div>
+            <span class="text-[10px] text-emerald-400">● Normal Sinus</span>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl">
+            <span class="text-[11px] text-slate-400 font-medium">Blood Pressure</span>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span class="text-xl font-black text-white">124/80</span>
+              <span class="text-[10px] text-slate-500">mmHg</span>
+            </div>
+            <span class="text-[10px] text-emerald-400">● Optimal</span>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl">
+            <span class="text-[11px] text-slate-400 font-medium">SpO2 (Wearable)</span>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span class="text-xl font-black text-white">97%</span>
+              <span class="text-[10px] text-slate-500">Continuous</span>
+            </div>
+            <span class="text-[10px] text-emerald-400">● Stable</span>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-3 rounded-xl">
+            <span class="text-[11px] text-slate-400 font-medium">Temperature</span>
+            <div class="flex items-baseline gap-1.5 mt-0.5">
+              <span class="text-xl font-black text-white">99.1</span>
+              <span class="text-[10px] text-slate-500">°F</span>
+            </div>
+            <span class="text-[10px] text-amber-400">Mild Elevation</span>
+          </div>
+        </div>
+
+        <!-- Computer Vision Diagnostics Viewer -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-xs text-slate-200 uppercase tracking-wider">Medical Scan Analysis</h3>
+              <span class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] px-2 py-0.5 rounded font-mono">
+                PyTorch YOLOv8 Inference
+              </span>
+            </div>
+            <span class="text-[11px] text-slate-400">Scan: Brain MRI (T2 Axial)</span>
+          </div>
+
+          <!-- Canvas Display with Anomaly Flag -->
+          <div class="relative bg-black rounded-xl overflow-hidden aspect-video flex items-center justify-center border border-slate-800">
+            <div class="text-center">
+              <p class="text-[11px] text-slate-500 font-mono">DICOM Viewer Active</p>
+              <div class="mt-2 inline-flex items-center gap-2 border border-rose-500/40 bg-rose-500/10 px-3 py-1.5 rounded-lg text-rose-300 text-xs font-semibold">
+                <span>⚠️</span> Flagged Anomaly: Left Frontal Lobe Hyperintensity (Conf: 89.2%)
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Alibaba Qwen Decision Support & Rx (5 Cols) -->
+      <div class="col-span-5 flex flex-col gap-5">
+        
+        <!-- Alibaba Qwen AI Copilot Card -->
+        <div class="bg-gradient-to-b from-blue-950/40 via-slate-900 to-slate-900 border border-blue-800/40 rounded-2xl p-4 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-blue-400 text-sm">✨</span>
+              <h3 class="font-bold text-xs text-white uppercase tracking-wider">AI Clinical Overview</h3>
+            </div>
+            <span class="text-[10px] bg-blue-500/10 text-blue-300 border border-blue-500/30 px-2 py-0.5 rounded font-mono">
+              Alibaba Qwen-2.5
+            </span>
+          </div>
+
+          <div class="text-xs text-slate-300 space-y-2 leading-relaxed bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+            <p>• <strong>Patient Background:</strong> 42yo female presenting with persistent tension headaches and mild episodic dizziness over 2 weeks.</p>
+            <p>• <strong>Imaging & Telemetry:</strong> YOLOv8 flagged a localized lesion in the left frontal region. 7-day wearable data shows elevated resting heart rate during headache onset.</p>
+            <p>• <strong>Differential Notes:</strong> Correlate with contrast-enhanced MRI. Evaluate for secondary headache etiology.</p>
+          </div>
+
+          <p class="text-[10px] text-slate-500 italic">
+            *Clinical Decision Support only. All clinical evaluations and diagnoses remain the responsibility of the physician.
+          </p>
+        </div>
+
+        <!-- Physician Assessment & Prescription Entry -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-xs text-slate-200 uppercase tracking-wider mb-2.5">Clinical Evaluation & Treatment</h3>
+            <textarea 
+              rows="4" 
+              placeholder="Record clinical impressions, order advanced labs, or specify prescription details..." 
+              class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-blue-500 resize-none font-sans">
+            </textarea>
+          </div>
+
+          <div class="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-800">
+            <button class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 transition">
+              Order Diagnostics
+            </button>
+            <button class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-semibold text-white transition shadow-lg shadow-emerald-600/20">
+              Sign & Issue Prescription
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
